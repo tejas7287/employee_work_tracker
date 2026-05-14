@@ -1,0 +1,44 @@
+<odoo>
+
+<template id="task_qr_page">
+<t t-call="website.layout">
+
+<div class="container mt-4">
+
+<h2>Task Details</h2>
+
+<table class="table table-bordered">
+
+<tr>
+<td><b>Reference</b></td>
+<td><t t-esc="task.name"/></td>
+</tr>
+
+<tr>
+<td><b>Employee</b></td>
+<td><t t-esc="task.employee_id.name"/></td>
+</tr>
+
+<tr>
+<td><b>Status</b></td>
+<td><t t-esc="task.state"/></td>
+</tr>
+
+<tr>
+<td><b>Start Date</b></td>
+<td><t t-esc="task.start_date"/></td>
+</tr>
+
+<tr>
+<td><b>End Date</b></td>
+<td><t t-esc="task.end_date"/></td>
+</tr>
+
+</table>
+
+</div>
+
+</t>
+</template>
+
+</odoo>

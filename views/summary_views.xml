@@ -1,0 +1,114 @@
+<odoo>
+
+    <!-- TREE VIEW -->
+    <record id="view_summary_tree" model="ir.ui.view">
+        <field name="name">employee.work.summary.tree</field>
+        <field name="model">employee.work.summary</field>
+        <field name="arch" type="xml">
+
+            <list>
+                <field name="employee_id"/>
+                <field name="total_tasks"/>
+                <field name="total_hours"/>
+            </list>
+
+        </field>
+    </record>
+
+
+    <!-- PIVOT VIEW -->
+    <record id="view_summary_pivot" model="ir.ui.view">
+        <field name="name">employee.work.summary.pivot</field>
+        <field name="model">employee.work.summary</field>
+        <field name="arch" type="xml">
+
+            <pivot>
+                <field name="employee_id" type="row"/>
+                <field name="total_hours" type="measure"/>
+                <field name="total_tasks" type="measure"/>
+            </pivot>
+
+        </field>
+    </record>
+
+
+    <!-- KANBAN VIEW -->
+    <record id="view_summary_kanban" model="ir.ui.view">
+        <field name="name">employee.work.summary.kanban</field>
+        <field name="model">employee.work.summary</field>
+        <field name="arch" type="xml">
+
+            <kanban>
+
+                <templates>
+
+                    <t t-name="card">
+
+                        <div class="oe_kanban_global_click">
+
+                            <div>
+                                <strong>
+                                    <field name="employee_id"/>
+                                </strong>
+                            </div>
+
+                            <div>
+                                Tasks :
+                                <field name="total_tasks"/>
+                            </div>
+
+                            <div>
+                                Hours :
+                                <field name="total_hours"/>
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+
+
+    <!-- GRAPH VIEW -->
+    <record id="view_summary_graph" model="ir.ui.view">
+        <field name="name">employee.work.summary.graph</field>
+        <field name="model">employee.work.summary</field>
+        <field name="arch" type="xml">
+
+            <graph string="Employee Work Summary" type="bar">
+
+                <field name="employee_id" type="row"/>
+                <field name="total_tasks" type="measure"/>
+                <field name="total_hours" type="measure"/>
+
+            </graph>
+
+        </field>
+    </record>
+
+
+    <!-- CALENDAR VIEW -->
+    <!-- Requires a date field in the model -->
+    <record id="view_summary_calendar" model="ir.ui.view">
+        <field name="name">employee.work.summary.calendar</field>
+        <field name="model">employee.work.summary</field>
+        <field name="arch" type="xml">
+
+            <calendar string="Employee Work Calendar"
+                      date_start="create_date">
+
+                <field name="employee_id"/>
+
+            </calendar>
+
+        </field>
+    </record>
+
+
+
+</odoo>

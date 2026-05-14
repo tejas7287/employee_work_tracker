@@ -1,0 +1,218 @@
+<odoo>
+
+    <!-- ===================== -->
+    <!-- MY TASKS CARD -->
+    <!-- ===================== -->
+
+    <template id="portal_my_home_tasks"
+              inherit_id="portal.portal_my_home"
+              name="Portal My Tasks"
+              priority="30">
+
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+
+            <t t-call="portal.portal_docs_entry">
+
+                <t t-set="icon" t-value="'/employee_work_tracker/static/src/img/task.svg'"/>
+                <t t-set="title">My Tasks</t>
+                <t t-set="url" t-value="'/my/tasks'"/>
+                <t t-set="text">View your assigned tasks</t>
+                <t t-set="placeholder_count" t-value="'task_count'"/>
+
+            </t>
+
+        </xpath>
+
+    </template>
+
+    <!-- ===================== -->
+    <!-- TASK LIST PAGE -->
+    <!-- ===================== -->
+
+    <template id="portal_my_tasks" name="My Tasks">
+
+        <t t-call="portal.portal_layout">
+
+            <div class="container">
+
+                <h2>My Tasks</h2>
+                <form method="get" action="/my/tasks" class="mb-3 d-flex">
+                    <input type="text"
+                           name="search"
+                           t-att-value="search or ''"
+                           placeholder="Search Reference (e.g. TSK001)"
+                           class="form-control me-2"/>
+                    <!-- SORT DROPDOWN -->
+                    <select name="sort" class="form-select me-2" style="max-width: 150px;">
+                        <option value="latest" t-att-selected="sort == 'latest'">Latest</option>
+                        <option value="oldest" t-att-selected="sort == 'oldest'">Oldest</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
+                </form>
+
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Task</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <t t-foreach="tasks" t-as="task">
+
+                            <tr>
+
+                                <td>
+                                    <a t-att-href="'/my/task/%s' % task.id">
+                                        <t t-esc="task.reference"/>
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <t t-esc="task.name"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="task.start_date"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="task.end_date"/>
+                                </td>
+
+                                <td>
+                                    <span t-att-class="'badge bg-success' if task.state=='approved' else 'badge bg-danger' if task.state=='rejected' else 'badge bg-warning'">
+                                        <t t-esc="task.state"/>
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <!-- PRINT -->
+                                    <a t-att-href="'/my/task/print/%s' % task.id"
+                                       class="btn btn-secondary btn-sm">
+                                        Print
+                                    </a>
+
+                                    <!-- APPROVE / REJECT -->
+                                    <t t-if="task.state == 'draft'">
+
+                                        <a t-att-href="'/my/task/approve/%s' % task.id"
+                                           class="btn btn-success btn-sm">
+                                            Approve
+                                        </a>
+
+                                        <a t-att-href="'/my/task/reject/%s' % task.id"
+                                           class="btn btn-danger btn-sm">
+                                            Reject
+                                        </a>
+
+                                    </t>
+
+                                    <t t-if="task.state != 'draft'">
+                                        <span class="text-muted">Done</span>
+                                    </t>
+
+                                </td>
+
+                            </tr>
+
+                        </t>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </t>
+
+    </template>
+    <template id="portal_task_detail" name="Task Detail">
+
+        <t t-call="portal.portal_layout">
+
+            <div class="container mt-4">
+
+                <h2>
+                    Task:
+                    <t t-esc="task.name"/>
+                </h2>
+
+                <!-- INFO -->
+                <div class="card p-3 mb-3">
+
+                    <p>
+                        <strong>Reference:</strong>
+                        <t t-esc="task.reference"/>
+                    </p>
+                    <p>
+                        <strong>Employee:</strong>
+                        <t t-esc="task.employee_id.name"/>
+                    </p>
+                    <p>
+                        <strong>Start:</strong>
+                        <t t-esc="task.start_date"/>
+                    </p>
+                    <p>
+                        <strong>End:</strong>
+                        <t t-esc="task.end_date"/>
+                    </p>
+                    <p>
+                        <strong>Status:</strong>
+                        <t t-esc="task.state"/>
+                    </p>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="mb-3">
+
+                    <a t-att-href="'/my/task/print/%s' % task.id"
+                       class="btn btn-secondary">
+                        Print
+                    </a>
+
+                    <t t-if="task.state == 'draft'">
+
+                        <a t-att-href="'/my/task/approve/%s' % task.id"
+                           class="btn btn-success">
+                            Approve
+                        </a>
+
+                        <a t-att-href="'/my/task/reject/%s' % task.id"
+                           class="btn btn-danger">
+                            Reject
+                        </a>
+
+                        <a t-att-href="'/my/task/reset/%s' % task.id"
+                           class="btn btn-warning btn-sm"
+                           onclick="return confirm('Are you sure you want to reset?');">
+                            Reset
+                        </a>
+
+                    </t>
+
+                    <t t-if="task.state != 'draft'">
+                        <span class="text-muted">Completed</span>
+                    </t>
+
+                </div>
+
+            </div>
+
+        </t>
+
+    </template>
+
+
+</odoo>

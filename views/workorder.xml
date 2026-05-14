@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+
+        <!-- ========================= -->
+        <!-- EXTRA FIELDS -->
+        <!-- ========================= -->
+
+        <record id="quality_check_form_inherit_history" model="ir.ui.view">
+            <field name="name">quality.check.form.history</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_ids']" position="after">
+                    <field name="product_barcode" readonly="1"/>
+                    <field name="employee_history" readonly="1"/>
+                    <field name="faulty_component_id" widget="many2many_tags"/>
+                    <field name="faulty_lot_id"
+                           widget="many2many_tags"
+                           domain="[('product_id', 'in', faulty_component_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ========================= -->
+        <!-- FINAL IMAGE -->
+        <!-- ========================= -->
+
+        <record id="view_quality_check_form_inherit_image" model="ir.ui.view">
+            <field name="name">quality.check.form.image</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='note']" position="after">
+                    <group string="Final Inspection Image">
+                        <field name="final_image" filename="final_image_filename" widget="image"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ========================= -->
+        <!-- WORKSHEET -->
+        <!-- ========================= -->
+
+        <record id="view_quality_check_form_inherit_worksheet_doc" model="ir.ui.view">
+            <field name="name">quality.check.form.worksheet.document</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Worksheet">
+                        <field name="worksheet_document" widget="pdf_viewer"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ========================= -->
+        <!-- WORKCENTER LOCATION -->
+        <!-- ========================= -->
+
+        <record id="view_workcenter_form_inherit_location" model="ir.ui.view">
+            <field name="name">mrp.workcenter.form.location</field>
+            <field name="model">mrp.workcenter</field>
+
+            <!-- ✅ CORRECT ID -->
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+
+            <field name="arch" type="xml">
+
+                <!-- place inside main group -->
+                <xpath expr="//sheet//group" position="inside">
+                    <field name="location_id"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="mrp_bom_form_inherit_component" model="ir.ui.view">
+            <field name="name">mrp.bom.form.component.operation</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='bom_line_ids']/list" position="inside">
+                    <field name="operation_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="mrp_production_form_inherit_serial_scan" model="ir.ui.view">
+            <field name="name">mrp.production.form.serial.scan</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+
+            <field name="arch" type="xml">
+
+                <!-- Insert AFTER product_id (safe anchor) -->
+                <xpath expr="//field[@name='move_raw_ids']//field[@name='product_id']" position="after">
+                    <field name="serial_input" class="o_serial_input" placeholder="Scan Serial"/>
+                    <button name="action_scan_serial"
+                            type="object"
+                            string="Scan"
+                            class="btn-primary"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+<odoo>
+    <record id="approval_category_subtask" model="approval.category">
+        <field name="name">Subtask Approval</field>
+
+    </record>
+</odoo>

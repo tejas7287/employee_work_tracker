@@ -1,0 +1,58 @@
+<odoo>
+    <odoo>
+    <record id="email_template_deadline" model="mail.template">
+
+        <field name="name">Task Deadline Reminder</field>
+        <field name="model_id" ref="model_employee_work_task"/>
+        <field name="subject">Task Deadline Reminder</field>
+
+        <field name="email_from">${user.email}</field>
+
+        <field name="partner_to">${object.employee_id.user_id.partner_id.id}</field>
+
+        <field name="body_html">
+        <![CDATA[
+        <p>Hello ${object.employee_id.name},</p>
+
+        <p>The deadline for the following task is approaching.</p>
+
+        <p>
+        <strong>Task:</strong> ${object.name}<br/>
+        <strong>Deadline:</strong> ${object.end_date}
+        </p>
+
+        <p>Please complete it on time.</p>
+        ]]>
+        </field>
+
+    </record>
+</odoo>
+
+
+
+    <!--    <record id="email_template_deadline" model="mail.template">-->
+
+    <!--        <field name="name">Task Deadline Reminder</field>-->
+    <!--        <field name="model_id" ref="model_employee_work_task"/>-->
+    <!--        <field name="subject">Task Deadline Reminder</field>-->
+
+    <!--        <field name="email_from">${user.email}</field>-->
+
+    <!--        <field name="email_to">${object.employee_id.work_email}</field>-->
+
+    <!--        <field name="body_html">-->
+    <!--            <![CDATA[-->
+    <!--        <p>Hello,</p>-->
+
+    <!--        <p>The deadline for the following task is approaching.</p>-->
+
+    <!--        <p><strong>Task:</strong> ${object.name}</p>-->
+    <!--        <p><strong>Deadline:</strong> ${object.end_date}</p>-->
+
+    <!--        <p>Please complete it on time.</p>-->
+    <!--        ]]>-->
+    <!--        </field>-->
+
+    <!--    </record>-->
+
+</odoo>

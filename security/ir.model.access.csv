@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_work_summary,access.employee.work.summary,model_employee_work_summary,base.group_user,1,1,1,1
+access_employee_work_task,access.employee.work.task,model_employee_work_task,base.group_user,1,1,1,1
+access_employee_work_subtask,access.employee.work.subtask,model_employee_work_subtask,base.group_user,1,1,1,1
+access_employee_work_task_line,access.employee.work.task.line,model_employee_work_task_line,base.group_user,1,1,1,1
+access_task_document,access.task.document,model_task_document,base.group_user,1,1,1,1
+access_work_department,work.department,model_work_department,base.group_user,1,1,1,1
+access_mrp_workorder_line_user,access_mrp_workorder_line_user,model_mrp_workorder_line,base.group_user,1,1,1,1
+access_mrp_workorder_history_user,access.mrp.workorder.history.user,model_mrp_workorder_history,base.group_user,1,1,1,1

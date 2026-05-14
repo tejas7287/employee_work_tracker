@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+
+        <!-- Barcode Label Template -->
+        <template id="report_lot_barcode">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+
+                    <t t-foreach="docs" t-as="o">
+
+                        <div class="page" style="text-align:center; margin-top:150px;">
+
+                            <!-- Product Name -->
+                            <h2>
+                                <t t-esc="o.product_id.name"/>
+                            </h2>
+
+                            <!-- Serial Number -->
+                            <h3>
+                                <t t-esc="o.name"/>
+                            </h3>
+
+                            <!-- ✅ VISUAL BARCODE -->
+                            <div style="margin-top:30px;">
+                                <img t-att-src="'data:image/png;base64,%s' % o.get_barcode_image()"
+                                     style="width:500px;height:150px;"/>
+                            </div>
+                            <!-- QR CODE -->
+                            <div style="margin-top:30px;">
+                                <img t-att-src="'data:image/png;base64,%s' % o.get_qr_code()"
+                                     style="width:200px;height:200px;"/>
+                            </div>
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+        </template>
+
+        <!-- Report Action -->
+        <record id="action_report_lot_barcode" model="ir.actions.report">
+            <field name="name">Lot Barcode</field>
+            <field name="model">stock.lot</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">employee_work_tracker.report_lot_barcode</field>
+            <field name="report_file">employee_work_tracker.report_lot_barcode</field>
+            <field name="binding_model_id" ref="stock.model_stock_lot"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

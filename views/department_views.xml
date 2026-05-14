@@ -1,0 +1,43 @@
+<odoo>
+
+    <!-- TREE VIEW -->
+    <record id="view_work_department_tree" model="ir.ui.view">
+        <field name="name">work.department.tree</field>
+        <field name="model">work.department</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="employee_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_work_department_form" model="ir.ui.view">
+        <field name="name">work.department.form</field>
+        <field name="model">work.department</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+
+                    <group>
+                        <field name="name"/>
+
+                        <field name="partner_id" string="Contact"/>
+                    </group>
+
+                    <group string="Employees">
+                        <field name="employee_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

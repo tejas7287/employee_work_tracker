@@ -1,0 +1,147 @@
+<odoo>
+
+    <!-- TASK ACTION -->
+    <record id="action_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">employee.work.task</field>
+        <field name="view_mode">list,kanban,form,graph,pivot,calendar</field>
+    </record>
+
+    <!-- SUMMARY ACTION -->
+    <record id="action_summary" model="ir.actions.act_window">
+        <field name="name">Work Summary</field>
+        <field name="res_model">employee.work.summary</field>
+        <field name="view_mode">list,kanban,form,graph,pivot,calendar</field>
+    </record>
+
+    <!-- SUBTASK ACTION -->
+    <record id="action_subtask" model="ir.actions.act_window">
+        <field name="name">Subtasks</field>
+        <field name="res_model">employee.work.subtask</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_departments" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">hr.department</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- SALES ACTION -->
+    <record id="action_work_sales" model="ir.actions.act_window">
+        <field name="name">Sales</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- PURCHASE ACTION -->
+    <record id="action_work_purchase" model="ir.actions.act_window">
+        <field name="name">Purchase</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- MANUFACTURING ACTION -->
+    <record id="action_work_manufacturing" model="ir.actions.act_window">
+        <field name="name">Manufacturing</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- CRM ACTION -->
+    <record id="action_work_crm" model="ir.actions.act_window">
+        <field name="name">CRM</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+
+    <!-- ROOT MENU -->
+    <menuitem id="menu_work_tracker_root"
+              name="Work Tracker"
+              sequence="10"
+              web_icon="employee_work_tracker,static/description/icon.png"/>
+
+
+    <!-- MANAGEMENT MENU -->
+    <menuitem id="menu_work_management"
+              name="Management"
+              parent="menu_work_tracker_root"
+              sequence="1"/>
+
+
+    <!-- TASKS -->
+    <menuitem id="menu_tasks"
+              name="Tasks"
+              parent="menu_work_management"
+              sequence="10"
+              action="action_task"/>
+
+
+    <!-- SUBTASKS -->
+    <menuitem id="menu_subtasks"
+              name="Subtasks"
+              parent="menu_work_management"
+              sequence="15"
+              action="action_subtask"/>
+
+
+    <!-- WORK SUMMARY -->
+    <menuitem id="menu_summary"
+              name="Work Summary"
+              parent="menu_work_management"
+              sequence="20"
+              action="action_summary"/>
+
+
+    <!-- OPERATIONS MENU -->
+    <menuitem id="menu_work_operations"
+              name="Operations"
+              parent="menu_work_tracker_root"
+              sequence="30"/>
+
+
+    <!-- SALES -->
+    <menuitem id="menu_work_sales"
+              name="Sales"
+              parent="menu_work_operations"
+              sequence="10"
+              action="action_work_sales"/>
+
+
+    <!-- PURCHASE -->
+    <menuitem id="menu_work_purchase"
+              name="Purchase"
+              parent="menu_work_operations"
+              sequence="20"
+              action="action_work_purchase"/>
+
+
+    <!-- MANUFACTURING -->
+    <menuitem id="menu_work_manufacturing"
+              name="Manufacturing"
+              parent="menu_work_operations"
+              sequence="30"
+              action="action_work_manufacturing"/>
+
+
+    <!-- CRM -->
+    <menuitem id="menu_work_crm"
+              name="CRM"
+              parent="menu_work_operations"
+              sequence="40"
+              action="action_work_crm"/>
+
+    <record id="action_work_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">work.department</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_work_department"
+              name="Departments"
+              parent="menu_work_tracker_root"
+              action="action_work_department"
+              sequence="5"/>
+
+</odoo>

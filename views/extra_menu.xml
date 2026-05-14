@@ -1,0 +1,46 @@
+<odoo>
+    <record id="action_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">employee.work.task</field>
+        <field name="view_mode">list,kanban,form,graph,pivot,calendar</field>
+    </record>
+
+    <record id="action_summary" model="ir.actions.act_window">
+        <field name="name">Work Summary</field>
+        <field name="res_model">employee.work.summary</field>
+        <field name="view_mode">list,kanban,form,graph,pivot,calendar</field>
+    </record>
+
+    <record id="action_subtask" model="ir.actions.act_window">
+        <field name="name">Subtasks</field>
+        <field name="res_model">employee.work.subtask</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_work_tracker_root"
+              name="Work Tracker"
+              sequence="10"
+              web_icon="employee_work_tracker,static/description/icon.png"/>
+
+    <menuitem id="menu_work_management"
+              name="Management"
+              parent="menu_work_tracker_root"
+              sequence="1"/>
+
+    <menuitem id="menu_tasks"
+              name="Tasks"
+              parent="menu_work_management"
+              sequence="10"
+              action="action_task"/>
+
+    <menuitem id="menu_summary"
+              name="Work Summary"
+              parent="menu_work_management"
+              sequence="20"
+              action="action_summary"/>
+    <menuitem id="menu_subtasks"
+              name="Subtasks"
+              parent="menu_work_management"
+              sequence="15"
+              action="action_subtask"/>
+</odoo>
